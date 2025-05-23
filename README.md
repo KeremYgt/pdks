@@ -7,6 +7,15 @@
 ```sh
 yarn install
 npm run dev
+yarn dev
+```
+
+##### Test Mode: 
+
+```sh
+yarn install
+npm run test
+yarn test
 ```
 
 ##### Production Mode:
@@ -14,7 +23,23 @@ npm run dev
 ```sh
 yarn install
 npm run start
+yarn start
 ```
+
+##### Local Mode: 
+
+```sh
+yarn install
+npm run local
+yarn local
+```
+
+## Dikkat Edilmesi Gerekenler
+
+*   `src/constants/config/index.js` içerisindeki `PORTS`, `ENV`, `CRON_KEY` projeye göre uygun bilgilerle güncellenmelidir.
+*   `src/constants/db/MongoDB.js` içerisindeki `generalDbs` projeye göre güncellenmelidir.
+*   Veritabanı işlemleri yapılırken 'db_name' olarak kullanılan veritabanı ismi projeye göre güncellenmelidir.
+*   AWS S3 servisine bağlanılacaksa `src/constants/upload` içerisindeki `buckets` ve `region` alanı projeye göre güncellenmelidir.
 
 ## Development
 
