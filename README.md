@@ -40,6 +40,7 @@ yarn local
 *   `src/constants/db/MongoDB.js` içerisindeki `generalDbs` projeye göre güncellenmelidir.
 *   Veritabanı işlemleri yapılırken 'db_name' olarak kullanılan veritabanı ismi projeye göre güncellenmelidir.
 *   AWS S3 servisine bağlanılacaksa `src/constants/upload` içerisindeki `buckets` ve `region` alanı projeye göre güncellenmelidir.
+* ecosystem.config.js projeye göre güncellenmelidir.
 
 ## Development
 
