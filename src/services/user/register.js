@@ -1,17 +1,42 @@
-const helpers = require('../../helpers');
-const repositories = require('../../repositories');
-const constants = require('../../constants');
+const  db  = require('../../db');
+const { CONFIG } = require('../../constants');
+
 
 module.exports = async (req, res) => {
-	let responseBody = constants.RESPONSE.DEFAULT();
-	try {
-		const hashedPassword = await helpers.auth.hashPassword(req.body.password);
+  try {
+    const { email, password, name, role, surname, telefon, user_id, office_id, project_id } = req.body;
 
-		const query = await repositories.user.register(req.body.email, hashedPassword);
+    if (!email || !password || !name || !surname || !telefon || !user_id || !office_id || !role ||!project_id) {
+      return res.status(400).json({ status: false, message: 'Tüm alanlar zorunludur (email, şifre, isim, rol).' });
+    }
 
-		responseBody.result = query;
-	} catch (error) {
-		responseBody = helpers.error.catcher(error);
-	}
-	return res.status(responseBody.httpStatus).json(responseBody);
+    // Aynı email ile kullanıcı var mı kontrolü
+    const existingUser = await new db.MongoDB.CRUD('pdks', 'users').find({ email }, [0, 1]);
+    if (existingUser.length > 0) {
+      return res.status(409).json({ status: false, message: 'Bu email zaten kayıtlı.' });
+    }
+
+    const newUser = {
+		  name,
+		  surname,
+     	email,
+	  	telefon,
+	  	password,
+	  	user_id,
+	  	office_id,
+	  	role,
+	  	project_id,
+      created_at: new Date(),
+    };
+
+
+
+    await new db.MongoDB.CRUD('pdks', 'users').insert(newUser);
+	
+
+    res.json({ status: true, message: 'Kullanıcı başarıyla eklendi.', data: newUser });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ status: false, message: 'Kullanıcı eklenemedi.' });
+  }
 };

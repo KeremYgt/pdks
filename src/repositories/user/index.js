@@ -63,7 +63,7 @@ module.exports.loginTokenSave = async (user_id, token, browser = null) => {
 };
 
 module.exports.login = async (email) => {
-	const query = await new db.MongoDB.CRUD('db_name', 'users').aggregate([
+	const query = await new db.MongoDB.CRUD('pdks', 'users').aggregate([
 		{
 			$match: { email },
 		},

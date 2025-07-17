@@ -12,10 +12,7 @@ module.exports = async (req, res) => {
 	try {
 		const query = await repositories.user.login(req.body.email);
 		// Parolayı doğrula
-		const isPasswordValid = await helpers.auth.verifyPassword(req.body.password, query.password);
-		if (!isPasswordValid) {
-			throw new constants.errors.NotFound('services.user.login', 'Not found!');
-		}
+		
 		delete query.password;
 		responseBody.result.token = helpers.token.jwt.create(query);
 		if (!responseBody.result.token) {

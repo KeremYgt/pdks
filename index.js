@@ -16,7 +16,6 @@ app.use(compression({ level: 7 }));
 async function connector() {
 	await db.MongoDB.connector('reader');
 	await db.MongoDB.connector('writer');
-	helpers.cache.redis.connector();
 }
 
 connector();

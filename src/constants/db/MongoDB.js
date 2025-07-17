@@ -10,6 +10,6 @@ module.exports.connection = {
 	connectTimeoutMS: 20 * 100000,
 };
 
-module.exports.generalDbs = ['db_name'];
+module.exports.generalDbs = ['pdks'];
 
 module.exports.idAlphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';

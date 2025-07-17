@@ -56,7 +56,7 @@ class CRUD {
 			this.db = `${db}`;
 		}
 		this.collection = collection;
-		if (process.env.NODE_ENV === constants.CONFIG.ENV.development) {
+		if (process.env.NODE_ENV === constants.CONFIG.ENV.DEV) {
 			this.db = `dev_${this.db}`;
 		}
 		if (process.env.NODE_ENV === constants.CONFIG.ENV.TEST) {
