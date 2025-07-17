@@ -6,6 +6,6 @@ module.exports = async (req, res) => {
     res.json({ status: true, data: users });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ status: false, message: 'Kullanıcılar alınamadı' });
+    res.status(500).json({ status: false, message: 'Kullanıcılar alınamadı.' });
   }
 };
