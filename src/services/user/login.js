@@ -11,12 +11,16 @@ module.exports = async (req, res) => {
 
 	try {
 		const query = await repositories.user.login(req.body.email);
-		// Parolayı doğrula
 		
+		// Şifre düz karşılaştırma (hash kullanılmıyor)
+		if (req.body.password !== query.password) {
+			throw new Error('Şifre yanlış');
+		}
+
 		delete query.password;
 		responseBody.result.token = helpers.token.jwt.create(query);
 		if (!responseBody.result.token) {
-			throw new constants.errors.ServerError('services.user.login', 'token cant create!');
+			throw new constants.errors.ServerError('services.user.login', 'token oluşturulamadı!');
 		}
 
 		responseBody.result.user = query;
@@ -27,4 +31,3 @@ module.exports = async (req, res) => {
 		return res.status(responseBody.httpStatus).json(responseBody);
 	}
 };
-//
