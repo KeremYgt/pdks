@@ -3,8 +3,11 @@ const router = express.Router();
 
 const int = require('./int');
 const user = require('./user');
+const izinler = require('./izinler'); 
 
 router.use('/int', int);
 router.use('/user', user);
+router.use('/izinler', izinler); 
+
 
 module.exports = router;

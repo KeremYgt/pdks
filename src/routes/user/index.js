@@ -3,6 +3,35 @@ const router = express.Router();
 const services = require('../../services');
 const controller = require('../../controller');
 const middlewares = require('../../middlewares');
+const izinController = require('../../controller/izin/izinController');
+
+/**
+ * @typedef {object} Izin
+ * @property {string} user_id.required - Kullanıcı ID'si
+ * @property {string} izin_baslangic_tarihi.required - İzin başlangıç tarihi (YYYY-MM-DD)
+ * @property {string} izin_bitis_tarihi.required - İzin bitiş tarihi (YYYY-MM-DD)
+ */
+
+/**
+ * POST /izin
+ * @summary Yeni izin oluştur
+ * @tags IZIN
+ * @param {Izin} request.body.required
+ * @return {object} 200 - İzin başarıyla oluşturuldu
+ */
+router.post('/', izinController.createIzin);
+
+/**
+ * GET /izin
+ * @summary Tüm izinleri getir
+ * @tags IZIN
+ * @return {array<Izin>} 200 - İzin listesi
+ */
+router.get('/', izinController.getAllIzin);
+
+module.exports = router;
+
+
 
 /**
  * DELETE /user/{id}
