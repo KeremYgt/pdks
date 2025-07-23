@@ -26,33 +26,15 @@ const middlewares = require('../../middlewares');
  * @return {array<Izin>} 200 - İzin listesi
  */
 
-
-
-
-/**
- * DELETE /user/{id}
- * @summary kullanıcı siler
- * @tags USER
- * @param {string} id.path.required - kullanıcı id'si
- * @return {object} 200 - success response - application/json
- * @return {object} 404 - not found - application/json
- */
-router.delete('/:id', services.user.delete);
-
-/**
- * GET /user/list
- * @summary kullanıcı listesini getirir
- * @tags USER
- * @return {object} 200 - success response - application/json
- */
-router.get('/list', services.user.list);
-
 /**
  * user login defination
  * @typedef {object} UserLogin
  * @property {string} email - email
  * @property {string} password - password - json:{"minLength": 6}
  */
+
+router.delete('/delete', [controller.user.delete], services.user.delete);
+router.post('/list', [controller.user.list], services.user.list);
 
 /**
  * POST /user/login
@@ -69,23 +51,23 @@ router.post('/login', [controller.user.login], services.user.login);
  * user register defination
  * @typedef {object} UserRegister
  * @property {string} email.required - email
- * 
+ *
  * @property {string} password.required - password - json:{"minLength": 8}
- * 
- * @property {string} name.required - name 
- * 
- * @property {string} surname.required - surname 
- * 
- * @property {string} telefon.required - telefon 
- * 
- * @property {string} user_id.required - user_id 
- * 
- * @property {string} office_id.required - office_id 
- * 
- * @property {string} project_id.required - project_id 
- * 
- * @property {string} role.required - role 
- * 
+ *
+ * @property {string} name.required - name
+ *
+ * @property {string} surname.required - surname
+ *
+ * @property {string} telefon.required - telefon
+ *
+ * @property {string} user_id.required - user_id
+ *
+ * @property {string} office_id.required - office_id
+ *
+ * @property {string} project_id.required - project_id
+ *
+ * @property {string} role.required - role
+ *
  */
 
 /**

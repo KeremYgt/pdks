@@ -1,11 +1,19 @@
-const db= require('../../db');
+const repositories = require('../../repositories');
 
 module.exports = async (req, res) => {
-  try {
-    const users = await new db.MongoDB.CRUD('pdks', 'users').find({}, [0, 100]);
-    res.json({ status: true, data: users });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ status: false, message: 'Kullanıcılar alınamadı.' });
-  }
+	try {
+		const users = await repositories.user.list();
+
+		res.json({
+			status: true,
+			message: 'Kullanıcılar başarıyla listelendi.',
+			data: users,
+		});
+	} catch (err) {
+		console.error(err);
+		res.status(500).json({
+			status: false,
+			message: 'Kullanıcılar listelenemedi.',
+		});
+	}
 };

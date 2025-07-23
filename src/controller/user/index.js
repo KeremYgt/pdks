@@ -1,5 +1,6 @@
 const constants = require('../../constants');
 const helpers = require('../../helpers');
+const repositories = require('../../repositories');
 
 module.exports.login = async (req, res, next) => {
 	try {
@@ -45,7 +46,27 @@ module.exports.register = (req, res, next) => {
 	}
 };
 
+module.exports.delete = async (req, res, next) => {
+	try {
+		const { user_id, name, surname } = req.body;
 
+		if (!user_id || !name || !surname) {
+			throw new Error('Silinecek kullanıcı için user id, ad ve soyad zorunludur.');
+		}
 
+		return next();
+	} catch (err) {
+		console.error(err);
+		res.status(400).json({ status: false, message: err.message || 'Kullanıcı silinemedi.' });
+	}
+};
 
-
+module.exports.list = async (req, res, next) => {
+	try {
+		// Burada herhangi bir kontrol gerekmediği için doğrudan next()
+		return next();
+	} catch (err) {
+		console.error(err);
+		res.status(500).json({ status: false, message: 'Listeleme işlemi sırasında bir hata oluştu.' });
+	}
+};

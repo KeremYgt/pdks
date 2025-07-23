@@ -2,10 +2,7 @@ const helpers = require('../../helpers');
 const constants = require('../../constants');
 const db = require('../../db');
 
-module.exports.register = async (
-	email,
-	password,
-) => {
+module.exports.register = async (email, password) => {
 	const user_id = db.MongoDB.id();
 	await new db.MongoDB.CRUD('db_name', 'users').insert({
 		user_id: user_id,
@@ -14,7 +11,7 @@ module.exports.register = async (
 		created_at: new helpers.date.kk_date().getTime(),
 	});
 
-    return await this.getById(user_id);
+	return await this.getById(user_id);
 };
 
 /**
@@ -77,4 +74,17 @@ module.exports.login = async (email) => {
 		return query[0];
 	}
 	throw new constants.errors.NotFound('repositories.user.login', 'not found !');
+};
+
+module.exports.delete = async (user_id) => {
+	const result = await new db.MongoDB.CRUD('pdks', 'user').deleteOne({
+		user_id,
+	});
+
+	throw new constants.errors.NotFound('repositories.user.login', 'not found !');
+};
+
+module.exports.list = async () => {
+	const crud = new db.MongoDB.CRUD('pdks', 'users');
+	return await crud.find({}, [0, 100]);
 };
