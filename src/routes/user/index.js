@@ -3,7 +3,6 @@ const router = express.Router();
 const services = require('../../services');
 const controller = require('../../controller');
 const middlewares = require('../../middlewares');
-const izinController = require('../../controller/izin/izinController');
 
 /**
  * @typedef {object} Izin
@@ -19,7 +18,6 @@ const izinController = require('../../controller/izin/izinController');
  * @param {Izin} request.body.required
  * @return {object} 200 - İzin başarıyla oluşturuldu
  */
-router.post('/', izinController.createIzin);
 
 /**
  * GET /izin
@@ -27,9 +25,7 @@ router.post('/', izinController.createIzin);
  * @tags IZIN
  * @return {array<Izin>} 200 - İzin listesi
  */
-router.get('/', izinController.getAllIzin);
 
-module.exports = router;
 
 
 
