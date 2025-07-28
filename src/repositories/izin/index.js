@@ -12,7 +12,7 @@ module.exports = {
 	},
 
 	list: async () => {
-		return await new db.MongoDB.CRUD('pdks', 'izinler').find({}, [0, 100]);
+		return await new db.MongoDB.CRUD('pdks', 'izinler').find({}, [0, 0]);
 	},
 
 	update: async (izinId, updateData) => {

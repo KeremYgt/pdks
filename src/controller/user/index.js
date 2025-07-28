@@ -1,6 +1,7 @@
 const constants = require('../../constants');
 const helpers = require('../../helpers');
 const repositories = require('../../repositories');
+const updateService = require('../../services/user/update');
 
 module.exports.login = async (req, res, next) => {
 	try {
@@ -68,5 +69,62 @@ module.exports.list = async (req, res, next) => {
 	} catch (err) {
 		console.error(err);
 		res.status(500).json({ status: false, message: 'Listeleme işlemi sırasında bir hata oluştu.' });
+	}
+};
+
+module.exports.update = async (req, res, next) => {
+	try {
+		const { _id, name, surname, email, telefon, password, office_id, project_id, role } = req.body;
+
+		if (!_id) {
+			throw new Error("Güncellenecek kullanıcı ID'si (user_id) belirtilmelidir.");
+		}
+
+		if (!name || !surname) {
+			throw new Error('Ad ve soyad alanları boş bırakılamaz.');
+		}
+
+		if (!email) {
+			throw new Error('Email alanı boş bırakılamaz.');
+		}
+
+		if (!telefon) {
+			throw new Error('Telefon alanı boş bırakılamaz.');
+		}
+
+		if (!password) {
+			throw new Error('Şifre alanı boş bırakılamaz.');
+		}
+
+		if (!office_id || !project_id) {
+			throw new Error('Ofis ID ve Proje ID boş bırakılamaz.');
+		}
+
+		if (!role) {
+			throw new Error('Rol belirtilmelidir.');
+		}
+
+		return next();
+	} catch (err) {
+		console.error(err);
+		res.status(400).json({ status: false, message: err.message || 'Kullanıcı güncellenemedi.' });
+	}
+};
+
+module.exports.toggleActive = async (req, res, next) => {
+	try {
+		const { user_id } = req.body;
+
+		if (!user_id) {
+			throw new Error('Kullanıcının aktiflik durumu için user_id zorunludur.');
+		}
+
+		return next();
+	} catch (err) {
+		console.error(err);
+		return res.status(400).json({
+			status: false,
+			message: err.message || 'Aktiflik durumu değiştirilirken hata oluştu.',
+		});
 	}
 };

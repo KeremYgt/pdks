@@ -33,8 +33,10 @@ const middlewares = require('../../middlewares');
  * @property {string} password - password - json:{"minLength": 6}
  */
 
-router.delete('/delete', [controller.user.delete], services.user.delete);
-router.post('/list', [controller.user.list], services.user.list);
+router.delete('/delete', [middlewares.authorization, controller.user.delete], services.user.delete);
+router.post('/list', [middlewares.authorization, controller.user.list], services.user.list);
+router.put('/update', [middlewares.authorization, controller.user.update], services.user.update);
+router.post('/toggleActive', [controller.user.toggleActive], services.user.toggleActive.toggleActive);
 
 /**
  * POST /user/login

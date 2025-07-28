@@ -88,3 +88,27 @@ module.exports.list = async () => {
 	const crud = new db.MongoDB.CRUD('pdks', 'users');
 	return await crud.find({}, [0, 100]);
 };
+
+module.exports.getByIdForLogin = async (user_id) => {
+	try {
+		const result = await new db.MongoDB.CRUD('pdks', 'users').find({ user_id }, [0, 1]); // Sadece 1 veri çek
+		return result[0] || null; // Sonuç varsa ilkini al
+	} catch (error) {
+		console.error('getByIdForLogin error:', error);
+		throw new Error('Kullanıcı bilgileri alınamadı.');
+	}
+};
+
+module.exports.update = async (user_id, updateData) => {
+	return await new db.MongoDB.CRUD('pdks', 'users').update(user_id, updateData);
+};
+
+// Kullanıcıyı ID'ye göre bul
+module.exports.findById = async (user_id) => {
+	return await new db.MongoDB.CRUD.findOne({ user_id });
+};
+
+// Kullanıcının aktiflik durumunu güncelle
+module.exports.updateActiveStatus = async (user_id, is_active) => {
+	return await new db.MongoDB.CRUD.updateOne({ user_id }, { $set: { is_active } });
+};
