@@ -8,7 +8,7 @@ const terminal = require('./terminal');
 
 router.use('/int', int);
 router.use('/user', user);
-
+router.use('/terminal', terminal);
 router.use('/izinler', izinler);
 
 module.exports = router;
